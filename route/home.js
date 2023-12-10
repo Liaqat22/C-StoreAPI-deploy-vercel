@@ -1,4 +1,5 @@
 const express = require("express");
+const categoryModel = require("./categoryModel");
 const router = express.Router();
 
 router.get("/", async (req, res, next) => {
