@@ -2,7 +2,7 @@ const express = require("express");
 const categoryModel = require("./categoryModel");
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
+router.get("/get-category", async (req, res, next) => {
   try {
     const category = await categoryModel.find({});
     res.status(200).send({
