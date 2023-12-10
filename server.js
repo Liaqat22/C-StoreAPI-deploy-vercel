@@ -55,10 +55,10 @@ const connectDB = require('./db.js');
 const cors = require("cors")
 
 connectDB()
-app.use(cors())
 
 // Middlewares
 const app = express();
+app.use(cors())
 app.use(express.json());
 
 // Routes
