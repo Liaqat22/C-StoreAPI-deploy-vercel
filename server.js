@@ -52,8 +52,10 @@
 const express = require("express");
 const home = require("./route/home");
 const connectDB = require('./db.js');
+const cors = require("cors")
 
 connectDB()
+app.use(cors())
 
 // Middlewares
 const app = express();
