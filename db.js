@@ -11,8 +11,9 @@ const connectDB = async () => {
     const conn = await mongoose.connect(process.env.mongo_url);
     console.log('MongoDB connected successfully'.bgMagenta.white);
   } catch (error) {
-    console.error('MongoDB failed to connect'.bgRed.white);
+    console.error('MongoDB connection failed:', error);
   }
 };
+
 
 module.exports = connectDB;
