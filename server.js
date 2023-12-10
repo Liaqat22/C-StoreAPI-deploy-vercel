@@ -60,7 +60,7 @@ const app = express();
 app.use(express.json());
 
 // Routes
-app.use("/home", home);
+app.use("/api/v1/category", home);
 
 // connection
 const port = process.env.PORT || 9001;
