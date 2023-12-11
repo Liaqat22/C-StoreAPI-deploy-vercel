@@ -7,17 +7,18 @@ const router = express.Router();
 
 //get all categories
 router.get("/get-category", async (req, res, next) => {
+  try {
     const category = await categoryModel.find({});
     res.status(200).send({
       success: true,
       message: "All Categories List",
       category,
     });
-  return res.status(200).json({
-    title: "Express Testing",
-    message: "The app is working properly!",
-  });
+  } catch (error) {
+    res.status(500).send({ error: "Internal Server Error" });
+  }
 });
+
 
 
 // create category
