@@ -2,6 +2,8 @@
 const express = require("express");
 const categoryController = require("./route/Category/categoryController");
 const authController = require("./route/Users/authController");
+const productController = require("./route/Products/productController");
+
 const connectDB = require('./db.js');
 const cors  = require("cors")
 
@@ -15,6 +17,7 @@ app.use(express.json());
 // Routes
 app.use("/api/v1/category", categoryController);
 app.use("/api/v1/auth", authController);
+app.use("/api/v1/product", productController);
 
 // connection
 const port = process.env.PORT || 9001;
