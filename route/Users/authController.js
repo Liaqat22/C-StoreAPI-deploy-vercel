@@ -1,10 +1,11 @@
 const express = require("express");
 const userModel = require("./userModel");
-const  JWT = require( "jsonwebtoken");
-const { comparePassword, hashPassword } = require("./helper");
-
 dotenv.config();
 const dotenv = require("dotenv");
+const { comparePassword, hashPassword } = require("./helper");
+const  JWT = require( "jsonwebtoken");
+
+
 
 const router = express.Router();
 
