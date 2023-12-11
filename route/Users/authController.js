@@ -4,6 +4,8 @@ require('dotenv').config();
 const dotenv = require("dotenv");
 const { comparePassword, hashPassword } = require("./helper");
 const  JWT = require( "jsonwebtoken");
+const { isAdmin, requireSignIn } = require("./Middleware");
+
 
 
 
@@ -122,5 +124,13 @@ router.post("/login", async (req, res) => {
         error,
       });
     }
+  });
+
+ router.get("/user-auth", requireSignIn, (req, res) => {
+    res.status(200).send({ ok: true });
+  });
+  //protected Admin route auth
+  router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
+    res.status(200).send({ ok: true });
   });
 module.exports = router;
