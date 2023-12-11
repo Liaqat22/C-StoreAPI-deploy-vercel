@@ -19,7 +19,6 @@ router.get("/get-category", async (req, res, next) => {
   });
 });
 
-module.exports = router;
 
 // create category
 router.post("/create-category" , async (req, res) => {
@@ -116,3 +115,5 @@ router.delete("/delete-category/:id", async (req, res) => {
     });
   }
 });
+
+module.exports = router;
