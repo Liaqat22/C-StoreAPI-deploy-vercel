@@ -11,6 +11,7 @@ const orderModel = require("./orderModel");
 
 const router = express.Router();
 
+console.log("Braintree_Public_Key:", process.env.Braintree_Public_Key); // Check the value here
 
 //payment gateway
 var gateway = new braintree.BraintreeGateway({
