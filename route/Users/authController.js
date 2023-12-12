@@ -158,7 +158,7 @@ router.post("/login", async (req, res) => {
       const orders = await orderModel
         .find({})
         .populate("products", "-photo")
-        .sort({ createdAt: "-1" });
+        .sort({ createdAt: -1 });
       res.json(orders);
     } catch (error) {
       console.log(error);
