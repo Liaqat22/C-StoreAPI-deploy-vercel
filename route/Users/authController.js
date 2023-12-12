@@ -1,5 +1,6 @@
 const express = require("express");
 const userModel = require("./userModel");
+import orderModel from "../Products/orderModel";
 require('dotenv').config();
 const dotenv = require("dotenv");
 const { comparePassword, hashPassword } = require("./helper");
@@ -132,5 +133,61 @@ router.post("/login", async (req, res) => {
   //protected Admin route auth
   router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
     res.status(200).send({ ok: true });
+  });
+
+  router.post("/orders", async (req, res) => {
+    try {
+      const orders = await orderModel
+        .find({ buyer: req.body.userId  })
+        .populate("products", "-photo")
+      res.json(orders);
+    ;
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        message: "Error WHile Geting Orders",
+        error,
+      });
+    }
+  });
+  
+  //orders
+ router.get("/all-orders", async (req, res) => {
+    try {
+      const orders = await orderModel
+        .find({})
+        .populate("products", "-photo")
+        .sort({ createdAt: "-1" });
+      res.json(orders);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        message: "Error WHile Geting Orders",
+        error,
+      });
+    }
+  });
+  
+  //order status
+router.put("/order-status/:orderId",  async (req, res) => {
+    try {
+      const { orderId } = req.params;
+      const { status } = req.body;
+      const orders = await orderModel.findByIdAndUpdate(
+        orderId,
+        { status },
+        { new: true }
+      );
+      res.json(orders);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        message: "Error While Updateing Order",
+        error,
+      });
+    }
   });
 module.exports = router;
