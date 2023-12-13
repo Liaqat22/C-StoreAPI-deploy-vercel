@@ -10,9 +10,7 @@ const orderModel = require("./orderModel");
 
 
 const router = express.Router();
-const app = express();
 
-app.use(formidable());
 
 console.log("Braintree_Public_Key:", process.env.Braintree_Public_Key); // Check the value here
 
@@ -152,7 +150,7 @@ router.delete("/delete-product/:pid" , async (req, res) => {
   });
 
   //upate producta
-router.put("/update-product/:pid", async (req, res) => {
+router.put("/update-product/:pid", formidable(), async (req, res) => {
     try {
       const { name, description, price, category, quantity, shipping } =
         req.fields;
