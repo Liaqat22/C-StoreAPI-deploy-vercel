@@ -190,4 +190,78 @@ router.put("/order-status/:orderId",  async (req, res) => {
       });
     }
   });
+
+//get single user 
+router.get('/getsingleuser/:id', async (req, res)   => {
+    try {
+        const user = await userModel.findById(req.params.id);
+        if (!user) {
+          return res.status(404).json({ error: 'User not found' });
+        }
+        res.status(200).json(user);
+      } catch (err) {
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    }
+)
+
+//delete user
+
+router.delete("/deleteuser/:pid", async (req, res) => {
+    try {
+        const { pid } = req.params
+
+        const user = await userModel.findByIdAndDelete(pid)
+        res.status(202).send({
+            success: true,
+            message: 'product deleted successfully'
+        })
+
+    } catch (error) {
+        res.status(404).send({
+            success: false,
+            message: 'error in deleting product',
+        })
+    }
+})
+
+//get all users
+
+router.get("/getallusers", async (req, res) => {
+    try {
+        const users = await userModel.find({})
+          
+
+        res.status(202).send({
+            totalUsers: users.length,
+            success: true,
+            message: 'successfully got all products',
+            users
+        })
+
+    } catch (error) {
+        res.status(404).send({
+            success: false,
+            message: 'error in getting products',
+        })
+    }
+})
+
+//update profile
+
+router.put("/updateprofile/:id", async (request, response) => {
+   
+    const {id} = request.params
+            const {user} = request.body;
+    
+            // const editUser = new userModel(user);
+            try{
+                await userModel.findByIdAndUpdate(id, user);
+                response.status(201).json(user);
+            } catch (error){
+                response.status(409).json({ message: error.message});     
+            }
+        
+    
+    })
 module.exports = router;
