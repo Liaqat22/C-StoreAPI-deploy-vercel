@@ -247,24 +247,20 @@ router.get("/getallusers", async (req, res) => {
 //update profile
 
 router.put("/updateprofile/:id", async (req, res) => {
-   
-    const {id} = req.params
- try {
-      const { name, email, password, phone, address } = req.body;
-    
-     
-            const user =  await userModel.findByIdAndUpdate(id, { name, email, password, phone, address }, { new: true });
-                      await user.save();
+    const { id } = req.params;
+    try {
+        const { name, email, password, phone, address } = req.body;
 
-          res.status(200).send({
-        success: true,
-        messsage: "user Updated Successfully",
-        user,
-      });
- } catch (error){
-                res.status(409).json({ message: error.message});     
-            }
-        
-    
-    })
+        const user = await userModel.findByIdAndUpdate(id, { name, email, password, phone, address }, { new: true });
+
+        res.status(200).send({
+            success: true,
+            message: "User updated successfully",
+            user,
+        });
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
+});
+
 module.exports = router;
