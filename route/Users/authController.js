@@ -18,7 +18,7 @@ const router = express.Router();
 
 router.post("/register", async (req, res) => {
     try {
-      const { name, email, password, phone, address, answer } = req.body;
+      const { name, email, password, phone, address } = req.body;
       //validations
       if (!name) {
         return res.send({ error: "Name is Required" });
@@ -35,9 +35,7 @@ router.post("/register", async (req, res) => {
       if (!address) {
         return res.send({ message: "Address is Required" });
       }
-      if (!answer) {
-        return res.send({ message: "Answer is Required" });
-      }
+      
       //check user
       const exisitingUser = await userModel.findOne({ email });
       //exisiting user
@@ -56,7 +54,6 @@ router.post("/register", async (req, res) => {
         phone,
         address,
         password: hashedPassword,
-        answer,
       }).save();
   
       res.status(201).send({
