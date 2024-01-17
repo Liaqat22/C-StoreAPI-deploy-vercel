@@ -1,6 +1,6 @@
 const express = require("express");
 const userModel = require("./userModel");
-import orderModel from "../Products/orderModel";
+const orderModel = require("../Products/orderModel");
 require('dotenv').config();
 const dotenv = require("dotenv");
 const { comparePassword, hashPassword } = require("./helper");
