@@ -267,7 +267,7 @@ router.put("/updateprofile/:id", async (req, res) => {
       if (!address) {
         return res.send({ message: "Address is Required" });
       }
-     try{
+     
             const user =  await userModel.findByIdAndUpdate(id, { name, email, password, phone, address }, { new: true });
                       await user.save();
 
@@ -276,7 +276,7 @@ router.put("/updateprofile/:id", async (req, res) => {
         messsage: "user Updated Successfully",
         user,
       });
-            } catch (error){
+ } catch (error){
                 res.status(409).json({ message: error.message});     
             }
         
