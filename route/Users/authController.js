@@ -246,17 +246,38 @@ router.get("/getallusers", async (req, res) => {
 
 //update profile
 
-router.put("/updateprofile/:id", async (request, response) => {
+router.put("/updateprofile/:id", async (req, res) => {
    
-    const {id} = request.params
-            const {user} = request.body;
-    
-            // const editUser = new userModel(user);
-            try{
-                await userModel.findByIdAndUpdate(id, user);
-                response.status(201).json(user);
+    const {id} = req.params
+ try {
+      const { name, email, password, phone, address } = req.body;
+      //validations
+      if (!name) {
+        return res.send({ error: "Name is Required" });
+      }
+      if (!email) {
+        return res.send({ message: "Email is Required" });
+      }
+      if (!password) {
+        return res.send({ message: "Password is Required" });
+      }
+      if (!phone) {
+        return res.send({ message: "Phone no is Required" });
+      }
+      if (!address) {
+        return res.send({ message: "Address is Required" });
+      }
+     try{
+            const user =  await userModel.findByIdAndUpdate(id, { name, email, password, phone, address }, { new: true });
+                      await user.save();
+
+          res.status(200).send({
+        success: true,
+        messsage: "user Updated Successfully",
+        user,
+      });
             } catch (error){
-                response.status(409).json({ message: error.message});     
+                res.status(409).json({ message: error.message});     
             }
         
     
